@@ -83,7 +83,7 @@
       userChoiceText.textContent = "You chose: " + userGuess;
       //computerChoiceText.textContent = "The computer chose: " + computerGuess;
       winsText.textContent = "wins: " + correctGuess;
-      
+      lossesText.textContent = "losses: " + losses;
       userChoiceText.textContent = "Your guesses: " + userTypes.join(', ');
       remainingGuessesText.textContent = "Guesses left: " + remainingGuesses;
 
@@ -93,6 +93,7 @@
       //Reset game
     remainingGuesses = 9;
 
+    userTypes = [];
     userChoiceText.textContent = "Your guesses: ";
     losses++;
     lossesText.textContent = "losses: " + losses;
