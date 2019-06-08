@@ -28,12 +28,13 @@
       var correctGuess = 0;
       var wrongGuess = 0;
       var remainingGuesses = 9;
+      var losses = 0;
      
     // Create variables that hold references to the places in the HTML where we want to display things.
     var directionsText = document.getElementById("directions-text");
     var winsText = document.getElementById("wins-text");
     var lossesText = document.getElementById("losses-text");
-    var remainingGuesses = document.getElementById("remaining-guesses");
+    var remainingGuessesText = document.getElementById("remaining-guesses");
     var userChoiceText = document.getElementById("userchoice-text");
     
     // Randomly chooses a choice from the options array. This is the Computer's guess.
@@ -44,18 +45,22 @@
       console.log(event)
       // Determines which key was pressed.
             var userGuess = event.key;
-
+            
+      remainingGuesses--;
+      console.log(remainingGuesses);
       //TODO:  We should run any code beyond this point if the user did not enter a letter
       //look for indexOf method which returns valid index if found in an array or -1 if not found
 
 
       // This logic determines the outcome of a correct or incorrect guess - does the user guess === the computer guess 
+      
       if(userGuess.toLowerCase() === computerGuess){
         console.log('you matched')
         //IN THIS BLOCK USER HAS WON
         correctGuess++;
         //Reset game
         remainingGuesses = 9;
+
         // new computer guess
         computerGuess = letters[Math.floor(Math.random() * letters.length)];
         //reset user guess
@@ -66,24 +71,37 @@
         //In this block user did not win and we need to do stuff
 
         //subtract guesses
-        remainingGuesses--;
         //update users guesses list
         userTypes.push(userGuess);
         console.log(userTypes);
       }
 
 
-      //If statement to check if guesses is at 0
-      //if yes user loses and reset game
-      //if no just do nothing
-      //Dont forget to increase losses by 1
+      
 
       // Display the user and computer guesses, and wins/losses/ties.
       userChoiceText.textContent = "You chose: " + userGuess;
       //computerChoiceText.textContent = "The computer chose: " + computerGuess;
       winsText.textContent = "wins: " + correctGuess;
-      lossesText.textContent = "losses: " + wrongGuess;
+      
       userChoiceText.textContent = "Your guesses: " + userTypes.join(', ');
+      remainingGuessesText.textContent = "Guesses left: " + remainingGuesses;
+
+      //If statement to check if guesses is at 0
+      if(remainingGuesses == 0){
+      
+      //Reset game
+    remainingGuesses = 9;
+
+    userChoiceText.textContent = "Your guesses: ";
+    losses++;
+    lossesText.textContent = "losses: " + losses;
+    // wrongGuess++;
+    //remainingGuesses.push(remainingGuesses);
+    //if yes user loses and reset game
+    //if no just do nothing
+    //Dont forget to increase losses by 1
+    }
 
 
     }
@@ -102,28 +120,3 @@
 
   </body>
 </html>
-
-
-<!-- 2. You're going to make a game just like the one in the video. Essentially, the app randomly picks a letter, and the user has to guess which letter the app chose. Put the following text on your page:
-
-3. Guess what letter I'm thinking of
-
-4. Wins: (# of times the user has guessed the letter correctly)
-
-5. Losses: (# of times the user has failed to guess the letter correctly after exhausting all guesses)
-
-6. Guesses Left: (# of guesses left. This will update)
-
-7. Your Guesses So Far: (the specific letters that the user typed. Display these until the user either wins or loses.)
-
-8. When the player wins, increase the Wins counter and start the game over again (without refreshing the page).
-
-9. When the player loses, increase the Losses counter and restart the game without a page refresh (just like when the user wins). -->
-
-
-<!-- // for(var i = 0 ; i<letters.length; i++){
-  //   console.log(letters[i])
-  // }
-  
-//   var letter = letters[Math.floor(Math.random()*letters.length)];
-//   return letter -->
