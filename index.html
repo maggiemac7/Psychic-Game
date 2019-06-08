@@ -11,6 +11,7 @@
           <p id="directions-text">Guess what letter the computer is thinking of. You get 9 guesses</p>
           <p id="wins-text"></p>
           <p id="losses-text"></p>
+          <p id="remaining-guesses"></p>
           <p id="userchoice-text"></p>
         </div>
 
@@ -18,12 +19,74 @@
 
     // create an array listing all of the computer's options.
       var letters = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+      var userTypes = [];
+    // create a function to generate the computer's letter choice
+
+
+    // create variables to hold the number of wins, losses, and guesses remaining
+  
+      var correctGuess = 0;
+      var wrongGuess = 0;
+      var remainingGuesses = 9;
+     
+    // Create variables that hold references to the places in the HTML where we want to display things.
+    var directionsText = document.getElementById("directions-text");
+    var winsText = document.getElementById("wins-text");
+    var lossesText = document.getElementById("losses-text");
+    var remainingGuesses = document.getElementById("remaining-guesses");
+    var userChoiceText = document.getElementById("userchoice-text");
     
-    // create variable to track user's correct guesses (win counter)
+    // Randomly chooses a choice from the options array. This is the Computer's guess.
+    var computerGuess = letters[Math.floor(Math.random() * letters.length)];
+      console.log(computerGuess);
+    // This function is run whenever the user presses a key.
+    document.onkeyup = function(event) {
+      console.log(event)
+      // Determines which key was pressed.
+            var userGuess = event.key;
 
-    // create variable to track user's incorrect guesses
+      //TODO:  We should run any code beyond this point if the user did not enter a letter
+      //look for indexOf method which returns valid index if found in an array or -1 if not found
 
-    // create variable to track how many guesses user has left
+
+      // This logic determines the outcome of a correct or incorrect guess - does the user guess === the computer guess 
+      if(userGuess.toLowerCase() === computerGuess){
+        console.log('you matched')
+        //IN THIS BLOCK USER HAS WON
+        correctGuess++;
+        //Reset game
+        remainingGuesses = 9;
+        // new computer guess
+        computerGuess = letters[Math.floor(Math.random() * letters.length)];
+        //reset user guess
+        userTypes = []
+      }
+      else {
+        console.log('you did not matched')
+        //In this block user did not win and we need to do stuff
+
+        //subtract guesses
+        remainingGuesses--;
+        //update users guesses list
+        userTypes.push(userGuess);
+        console.log(userTypes);
+      }
+
+
+      //If statement to check if guesses is at 0
+      //if yes user loses and reset game
+      //if no just do nothing
+      //Dont forget to increase losses by 1
+
+      // Display the user and computer guesses, and wins/losses/ties.
+      userChoiceText.textContent = "You chose: " + userGuess;
+      //computerChoiceText.textContent = "The computer chose: " + computerGuess;
+      winsText.textContent = "wins: " + correctGuess;
+      lossesText.textContent = "losses: " + wrongGuess;
+      userChoiceText.textContent = "Your guesses: " + userTypes.join(', ');
+
+
+    }
 
     // create display to show guesses so far
 
